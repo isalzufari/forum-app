@@ -1,4 +1,3 @@
-import { Button } from 'react-bootstrap';
 import { Routes, Route } from 'react-router-dom';
 import { Container } from 'react-bootstrap';
 import Navigation from './components/Navigation';
@@ -9,6 +8,37 @@ import ThreadsPage from './pages/ThreadsPage';
 import ThreadDetail from './pages/ThreadDetail';
 
 function App() {
+  const {
+    authUser = null,
+    isPreload = false,
+  } = {};
+
+  const onSignOut = () => {
+
+  };
+
+  if (isPreload) {
+    return null;
+  }
+
+  if (authUser === null) {
+    return (
+      <>
+        <header>
+          <Navigation authUser={authUser} />
+        </header>
+        <main>
+          <Container>
+            <Routes>
+              <Route path="/*" element={<LoginPage />} />
+              <Route path="/register" element={<RegisterPage />} />
+            </Routes>
+          </Container>
+        </main >
+      </>
+    )
+  }
+
   return (
     <>
       <header>
@@ -17,8 +47,6 @@ function App() {
       <main>
         <Container>
           <Routes>
-            {/* <Route path="/*" element={<LoginPage />} />
-            <Route path="/register" element={<RegisterPage />} /> */}
             <Route path="/" element={<ThreadsPage />} />
             <Route path="/threads" element={<ThreadDetail />} />
           </Routes>
