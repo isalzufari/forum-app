@@ -1,24 +1,30 @@
-import logo from './logo.svg';
-import './App.css';
+import { Button } from 'react-bootstrap';
+import { Routes, Route } from 'react-router-dom';
+import { Container } from 'react-bootstrap';
+import Navigation from './components/Navigation';
+
+import LoginPage from './pages/LoginPage';
+import RegisterPage from './pages/RegisterPage';
+import ThreadsPage from './pages/ThreadsPage';
+import ThreadDetail from './pages/ThreadDetail';
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
+    <>
+      <header>
+        <Navigation />
       </header>
-    </div>
+      <main>
+        <Container>
+          <Routes>
+            {/* <Route path="/*" element={<LoginPage />} />
+            <Route path="/register" element={<RegisterPage />} /> */}
+            <Route path="/" element={<ThreadsPage />} />
+            <Route path="/threads" element={<ThreadDetail />} />
+          </Routes>
+        </Container>
+      </main >
+    </>
   );
 }
 
