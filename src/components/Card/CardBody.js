@@ -13,9 +13,9 @@ const CardBody = () => {
           With supporting text below as a natural lead-in to additional content.
         </Card.Text>
         <Stack direction='horizontal' gap={3}>
-          <Link to="/"><i class="bi bi-hand-thumbs-up"> 2</i></Link>
-          <i class="bi bi-hand-thumbs-down"> 1</i>
-          <i class="bi bi-reply"> 3</i>
+          <Link to="/"><i className="bi bi-hand-thumbs-up"> 2</i></Link>
+          <i className="bi bi-hand-thumbs-down"> 1</i>
+          <i className="bi bi-reply"> 3</i>
           <p>53 menit lalu</p>
           <p>Dibuat oleh </p>
         </Stack>

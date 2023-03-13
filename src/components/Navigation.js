@@ -1,8 +1,9 @@
 import React from 'react';
-import { Navbar, Nav, Container } from 'react-bootstrap';
+import { Navbar, Nav, Container, Button } from 'react-bootstrap';
 
-const Navigation = ({ authUser }) => {
-  console.log(authUser);
+const Navigation = ({ authUser, signOut }) => {
+  const { name, email, avatar } = authUser;
+  console.log(name);
   return (
     <Navbar bg='dark' variant='dark' className='mb-3'>
       <Container>
@@ -17,7 +18,10 @@ const Navigation = ({ authUser }) => {
             </Nav>
             <Navbar.Collapse className="justify-content-end">
               <Navbar.Text>
-                Signed in as: <a href="#login">Mark Otto</a>
+                Signed in as: <a href="#login">{name}</a>
+                <Button onClick={() => signOut()} className='ms-3' variant="primary" type="button">
+                  Sign Out
+                </Button>
               </Navbar.Text>
             </Navbar.Collapse>
           </>
