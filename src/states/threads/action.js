@@ -1,3 +1,7 @@
+import {
+  hideLoading,
+  showLoading,
+} from 'react-redux-loading-bar';
 import api from '../../utils/api';
 
 const ActionType = {
@@ -8,7 +12,7 @@ const ActionType = {
   TOGGLE_DOWN_VOTE_THREAD: 'TOGGLE_DOWN_VOTE_THREAD',
   TOGGLE_NEUTRAL_UP_VOTE_THREAD: 'TOGGLE_NEUTRAL_UP_VOTE_THREAD',
   TOGGLE_NEUTRAL_DOWN_VOTE_THREAD: 'TOGGLE_NEUTRAL_DOWN_VOTE_THREAD',
-}
+};
 
 function receiveThreadsActionCreator(threads) {
   return {
@@ -70,17 +74,20 @@ function toggleNeutralDownVoteThreadActionCreator({ threadId, userId }) {
 
 function asyncAddThread({ title, body, category }) {
   return async (dispatch) => {
+    dispatch(showLoading());
     try {
       const thread = await api.createThread({ title, body, category });
       dispatch(addThreadActionCreator(thread));
     } catch (error) {
       alert(error.message);
     }
+    dispatch(hideLoading());
   };
 }
 
 function asyncToggleUpVoteThread(threadId) {
   return async (dispatch, getState) => {
+    dispatch(showLoading());
     const { authUser } = getState();
     dispatch(toggleUpVoteThreadActionCreator({ threadId, userId: authUser.id }));
 
@@ -88,13 +95,15 @@ function asyncToggleUpVoteThread(threadId) {
       await api.toggleUpVoteThread(threadId);
     } catch (error) {
       alert(error.message);
-      dispatch(toggleUpVoteThreadActionCreator({ threadId, userId: authUser.id }))
+      dispatch(toggleUpVoteThreadActionCreator({ threadId, userId: authUser.id }));
     }
-  }
+    dispatch(hideLoading());
+  };
 }
 
 function asyncToggleDownVoteThread(threadId) {
   return async (dispatch, getState) => {
+    dispatch(showLoading());
     const { authUser } = getState();
     dispatch(toggleDownVoteThreadActionCreator({ threadId, userId: authUser.id }));
 
@@ -104,11 +113,13 @@ function asyncToggleDownVoteThread(threadId) {
       alert(error.message);
       dispatch(toggleDownVoteThreadActionCreator({ threadId, userId: authUser.id }));
     }
-  }
+    dispatch(hideLoading());
+  };
 }
 
 function asyncToggleNeutralUpVoteThread(threadId) {
   return async (dispatch, getState) => {
+    dispatch(showLoading());
     const { authUser } = getState();
     dispatch(toggleNeutralUpVoteThreadActionCreator({ threadId, userId: authUser.id }));
 
@@ -118,11 +129,13 @@ function asyncToggleNeutralUpVoteThread(threadId) {
       alert(error.message);
       dispatch(toggleNeutralUpVoteThreadActionCreator({ threadId, userId: authUser.id }));
     }
+    dispatch(hideLoading());
   };
 }
 
 function asyncToggleNeutralDownVoteThread(threadId) {
   return async (dispatch, getState) => {
+    dispatch(showLoading());
     const { authUser } = getState();
     dispatch(toggleNeutralDownVoteThreadActionCreator({ threadId, userId: authUser.id }));
 
@@ -132,7 +145,8 @@ function asyncToggleNeutralDownVoteThread(threadId) {
       alert(error.message);
       dispatch(toggleNeutralDownVoteThreadActionCreator({ threadId, userId: authUser.id }));
     }
-  }
+    dispatch(hideLoading());
+  };
 }
 
 export {
@@ -148,4 +162,4 @@ export {
   asyncToggleDownVoteThread,
   asyncToggleNeutralUpVoteThread,
   asyncToggleNeutralDownVoteThread,
-}
+};

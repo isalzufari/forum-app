@@ -10,4 +10,3 @@ function isPreloadReducer(isPreload = true, action = {}) {
 }
 
 export default isPreloadReducer;
-

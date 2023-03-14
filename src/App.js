@@ -1,14 +1,15 @@
 import React, { useEffect } from 'react';
 import { Routes, Route } from 'react-router-dom';
 import { Container } from 'react-bootstrap';
+import { useSelector, useDispatch } from 'react-redux';
 import Navigation from './components/Navigation';
+import Loading from './components/Loading';
 
 import LoginPage from './pages/LoginPage';
 import RegisterPage from './pages/RegisterPage';
 import ThreadsPage from './pages/ThreadsPage';
-import ThreadDetail from './pages/ThreadDetail';
+import ThreadDetailPage from './pages/ThreadDetailPage';
 
-import { useSelector, useDispatch } from 'react-redux';
 import { asyncPreloadProcess } from './states/isPreload/action';
 import { asyncUnsetAuthUser } from './states/authUser/action';
 
@@ -22,7 +23,6 @@ function App() {
 
   useEffect(() => {
     dispatch(asyncPreloadProcess());
-    console.log(authUser);
   }, [dispatch]);
 
   const onSignOut = () => {
@@ -36,6 +36,7 @@ function App() {
   if (authUser === null) {
     return (
       <>
+        <Loading />
         <header>
           <Navigation authUser={{}} signOut={onSignOut} />
         </header>
@@ -46,13 +47,14 @@ function App() {
               <Route path="/register" element={<RegisterPage />} />
             </Routes>
           </Container>
-        </main >
+        </main>
       </>
-    )
+    );
   }
 
   return (
     <>
+      <Loading />
       <header>
         <Navigation authUser={authUser} signOut={onSignOut} />
       </header>
@@ -60,10 +62,10 @@ function App() {
         <Container>
           <Routes>
             <Route path="/" element={<ThreadsPage />} />
-            <Route path="/threads" element={<ThreadDetail />} />
+            <Route path="/thread/:id" element={<ThreadDetailPage />} />
           </Routes>
         </Container>
-      </main >
+      </main>
     </>
   );
 }

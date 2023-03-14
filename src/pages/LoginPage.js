@@ -1,42 +1,44 @@
 import React from 'react';
 import { Button, Form } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
-import useInput from '../hooks/useInput';
-
-// Redux
-import { asyncSetAuthUser } from '../states/authUser/action';
 import { useDispatch } from 'react-redux';
+import useInput from '../hooks/useInput';
+import { asyncSetAuthUser } from '../states/authUser/action';
 
-const LoginPage = () => {
+function LoginPage() {
   const dispatch = useDispatch();
 
-  const [email, onEmailChange] = useInput('');
-  const [password, onPasswordChange] = useInput('');
+  const [onEmail, onEmailChange] = useInput('');
+  const [onPassword, onPasswordChange] = useInput('');
 
   const onLogin = ({ email, password }) => {
     dispatch(asyncSetAuthUser({ email, password }));
-  }
+  };
 
   return (
-    <Form className='mt-5 mx-5'>
+    <Form className="mt-5 mx-5">
       <Form.Group className="mb-3" controlId="formBasicEmail">
         <Form.Label>Email address</Form.Label>
-        <Form.Control value={email} onChange={onEmailChange} type="email" placeholder="Enter email" />
+        <Form.Control value={onEmail} onChange={onEmailChange} type="email" placeholder="Enter email" />
         <Form.Text className="text-muted">
-          We'll never share your email with anyone else.
+          We&apos;ll never share your email with anyone else.
         </Form.Text>
       </Form.Group>
 
       <Form.Group className="mb-3" controlId="formBasicPassword">
         <Form.Label>Password</Form.Label>
-        <Form.Control value={password} onChange={onPasswordChange} type="password" placeholder="Password" />
+        <Form.Control value={onPassword} onChange={onPasswordChange} type="password" placeholder="Password" />
       </Form.Group>
-      <Button onClick={() => onLogin({ email, password })} variant="primary" type="button">
+      <Button onClick={() => onLogin({ onEmail, onPassword })} variant="primary" type="button">
         Login
       </Button>
-      <p className='mt-3'>Belum punya akun? <Link to="/register">Daftar di sini</Link></p>
+      <p className="mt-3">
+        Don&apos;t have an account?
+        {' '}
+        <Link to="/register">Register in here</Link>
+      </p>
     </Form>
-  )
+  );
 }
 
 export default LoginPage;

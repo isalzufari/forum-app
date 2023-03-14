@@ -1,29 +1,69 @@
-import React from 'react';
-import { Alert } from 'react-bootstrap';
-import CardBody from '../components/Card/CardBody';
+import React, { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import Thread from '../components/Thread';
+import ThreadInput from '../components/ThreadInput';
+import { asyncPopulateUsersAndThreads } from '../states/shared/action';
+import {
+  asyncAddThread,
+  asyncToggleDownVoteThread,
+  asyncToggleNeutralDownVoteThread,
+  asyncToggleNeutralUpVoteThread,
+  asyncToggleUpVoteThread,
+} from '../states/threads/action';
 
-const ThreadsPage = () => {
+function ThreadsPage() {
+  const dispatch = useDispatch();
+  const {
+    threads = [],
+    users = [],
+    authUser,
+  } = useSelector((states) => states);
+
+  useEffect(() => {
+    dispatch(asyncPopulateUsersAndThreads());
+    // console.log(users);
+  }, [dispatch]);
+
+  const onLike = (id) => {
+    dispatch(asyncToggleUpVoteThread(id));
+  };
+
+  const onDislike = (id) => {
+    dispatch(asyncToggleDownVoteThread(id));
+  };
+
+  const onNeutralLike = (id) => {
+    dispatch(asyncToggleNeutralUpVoteThread(id));
+  };
+
+  const onNeutralDislike = (id) => {
+    dispatch(asyncToggleNeutralDownVoteThread(id));
+  };
+
+  const onThreadInput = (title, body, category) => {
+    // console.log(title, body, category);
+    dispatch(asyncAddThread({ title, body, category }));
+  };
+
+  const threadList = threads.map((thread) => ({
+    ...thread,
+    user: users.find((user) => user.id === thread.ownerId),
+    authUser: authUser.id,
+  }));
+
   return (
     <>
-      <Alert variant="success">
-        <Alert.Heading>Hey, nice to see you</Alert.Heading>
-        <p>
-          Aww yeah, you successfully read this important alert message. This
-          example text is going to run a bit longer so that you can see how
-          spacing within an alert works with this kind of content.
-        </p>
-        <hr />
-        <p className="mb-0">
-          Whenever you need to, be sure to use margin utilities to keep things
-          nice and tidy.
-        </p>
-      </Alert>
-
-      <h4 className='mb-3'>Diskusi Tersedia</h4>
-
-      <CardBody />
+      <ThreadInput threadInput={onThreadInput} />
+      <h4 className="mb-3 mt-3">Diskusi Tersedia</h4>
+      <Thread
+        threads={threadList}
+        like={onLike}
+        dislike={onDislike}
+        neutralLike={onNeutralLike}
+        neutralDislike={onNeutralDislike}
+      />
     </>
-  )
+  );
 }
 
 export default ThreadsPage;
