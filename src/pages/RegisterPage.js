@@ -13,8 +13,8 @@ function RegisterPage() {
   const [onEmail, onEmailChange] = useInput();
   const [onPassword, onPasswordChange] = useInput();
 
-  const onRegister = ({ name, email, password }) => {
-    dispatch(asyncRegisterUser({ name, email, password }));
+  const onRegister = () => {
+    dispatch(asyncRegisterUser({ name: onName, email: onEmail, password: onPassword }));
 
     navigate('/');
   };
@@ -38,7 +38,7 @@ function RegisterPage() {
         <Form.Label>Password</Form.Label>
         <Form.Control value={onPassword} onChange={onPasswordChange} type="password" placeholder="Password" />
       </Form.Group>
-      <Button onClick={() => onRegister({ onName, onEmail, onPassword })} variant="primary" type="button">
+      <Button onClick={() => onRegister()} variant="primary" type="button">
         Register
       </Button>
       <p className="mt-3">

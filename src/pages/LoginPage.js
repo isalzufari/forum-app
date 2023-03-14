@@ -11,8 +11,8 @@ function LoginPage() {
   const [onEmail, onEmailChange] = useInput('');
   const [onPassword, onPasswordChange] = useInput('');
 
-  const onLogin = ({ email, password }) => {
-    dispatch(asyncSetAuthUser({ email, password }));
+  const onLogin = () => {
+    dispatch(asyncSetAuthUser({ email: onEmail, password: onPassword }));
   };
 
   return (
@@ -29,7 +29,7 @@ function LoginPage() {
         <Form.Label>Password</Form.Label>
         <Form.Control value={onPassword} onChange={onPasswordChange} type="password" placeholder="Password" />
       </Form.Group>
-      <Button onClick={() => onLogin({ onEmail, onPassword })} variant="primary" type="button">
+      <Button onClick={() => onLogin()} variant="primary" type="button">
         Login
       </Button>
       <p className="mt-3">

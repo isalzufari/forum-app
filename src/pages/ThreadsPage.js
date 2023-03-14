@@ -49,6 +49,8 @@ function ThreadsPage() {
     ...thread,
     user: users.find((user) => user.id === thread.ownerId),
     authUser: authUser.id,
+    // eslint-disable-next-line max-len, no-shadow
+    isFeatured: threads.reduce((max, thread) => (max.upVotesBy.length > thread.upVotesBy.length ? max.id : thread.id)),
   }));
 
   return (

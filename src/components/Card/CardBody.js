@@ -20,6 +20,7 @@ function CardBody({
   dislike,
   neutralLike,
   neutralDislike,
+  isFeatured,
 }) {
   const navigate = useNavigate();
   const isThreadLiked = upVotesBy.includes(authUser);
@@ -62,7 +63,8 @@ function CardBody({
   return (
     <div role="button" tabIndex={0} onClick={onThreadClick} onKeyDown={onThreadPress}>
       <Card className="mb-3">
-        {/* <Card.Header>Featured</Card.Header> */}
+        {isFeatured === id
+          && <Card.Header>Featured</Card.Header>}
         <Card.Body>
           <Badge pill bg="dark">
             #
@@ -109,8 +111,8 @@ function CardBody({
             </i>
             <p>{postedAt(createdAt)}</p>
             <p>
-              Dibuat oleh
-              {' '}
+              From
+              {' @'}
               {user.name}
             </p>
           </Stack>
@@ -142,6 +144,7 @@ CardBody.propTypes = {
   dislike: PropTypes.func.isRequired,
   neutralLike: PropTypes.func.isRequired,
   neutralDislike: PropTypes.func.isRequired,
+  isFeatured: PropTypes.string.isRequired,
 };
 
 export default CardBody;

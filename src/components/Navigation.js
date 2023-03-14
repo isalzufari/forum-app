@@ -4,7 +4,6 @@ import {
 } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
-import { userShape } from '../utils/propsValidate';
 
 function Navigation({ authUser, signOut }) {
   const { name } = authUser;
@@ -22,6 +21,7 @@ function Navigation({ authUser, signOut }) {
             <Navbar.Collapse className="justify-content-end">
               <Navbar.Text>
                 Signed:
+                {' '}
                 <a href="#login">{name}</a>
               </Navbar.Text>
               <Button onClick={() => signOut()} className="ms-3" variant="primary" type="button">
@@ -35,8 +35,12 @@ function Navigation({ authUser, signOut }) {
   );
 }
 
+const authUserShape = {
+  name: PropTypes.string,
+};
+
 Navigation.propTypes = {
-  authUser: PropTypes.shape(userShape).isRequired,
+  authUser: PropTypes.shape(authUserShape).isRequired,
   signOut: PropTypes.func.isRequired,
 };
 

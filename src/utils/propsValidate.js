@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 
 const userShape = {
-  id: PropTypes.string.isRequired,
+  id: PropTypes.string,
   name: PropTypes.string.isRequired,
   email: PropTypes.string.isRequired,
   avatar: PropTypes.string.isRequired,
