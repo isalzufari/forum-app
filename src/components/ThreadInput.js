@@ -23,10 +23,10 @@ function ThreadInput({ threadInput }) {
     <Form onSubmit={threadInputHandler}>
       <Row>
         <Col>
-          <Form.Control value={title} onChange={(e) => setTitle(e.target.value)} placeholder="Judul" />
+          <Form.Control value={title} onChange={(e) => setTitle(e.target.value)} placeholder="Title" />
         </Col>
         <Col>
-          <Form.Control value={category} onChange={(e) => setCategory(e.target.value)} placeholder="Kategori" />
+          <Form.Control value={category} onChange={(e) => setCategory(e.target.value)} placeholder="Category" />
         </Col>
       </Row>
       <FloatingLabel

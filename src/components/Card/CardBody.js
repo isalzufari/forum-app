@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import parse from 'html-react-parser';
 import PropTypes from 'prop-types';
 import { postedAt } from '../../utils';
+import { userShape } from '../../utils/propsValidate';
 
 function CardBody({
   id,
@@ -20,7 +21,6 @@ function CardBody({
   dislike,
   neutralLike,
   neutralDislike,
-  isFeatured,
 }) {
   const navigate = useNavigate();
   const isThreadLiked = upVotesBy.includes(authUser);
@@ -63,8 +63,6 @@ function CardBody({
   return (
     <div role="button" tabIndex={0} onClick={onThreadClick} onKeyDown={onThreadPress}>
       <Card className="mb-3">
-        {isFeatured === id
-          && <Card.Header>Featured</Card.Header>}
         <Card.Body>
           <Badge pill bg="dark">
             #
@@ -122,13 +120,6 @@ function CardBody({
   );
 }
 
-const userShape = {
-  id: PropTypes.string.isRequired,
-  name: PropTypes.string.isRequired,
-  avatar: PropTypes.string.isRequired,
-  email: PropTypes.string.isRequired,
-};
-
 CardBody.propTypes = {
   id: PropTypes.string.isRequired,
   category: PropTypes.string.isRequired,
@@ -144,7 +135,6 @@ CardBody.propTypes = {
   dislike: PropTypes.func.isRequired,
   neutralLike: PropTypes.func.isRequired,
   neutralDislike: PropTypes.func.isRequired,
-  isFeatured: PropTypes.string.isRequired,
 };
 
 export default CardBody;

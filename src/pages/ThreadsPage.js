@@ -21,7 +21,6 @@ function ThreadsPage() {
 
   useEffect(() => {
     dispatch(asyncPopulateUsersAndThreads());
-    // console.log(users);
   }, [dispatch]);
 
   const onLike = (id) => {
@@ -41,7 +40,6 @@ function ThreadsPage() {
   };
 
   const onThreadInput = (title, body, category) => {
-    // console.log(title, body, category);
     dispatch(asyncAddThread({ title, body, category }));
   };
 
@@ -49,8 +47,6 @@ function ThreadsPage() {
     ...thread,
     user: users.find((user) => user.id === thread.ownerId),
     authUser: authUser.id,
-    // eslint-disable-next-line max-len, no-shadow
-    isFeatured: threads.reduce((max, thread) => (max.upVotesBy.length > thread.upVotesBy.length ? max.id : thread.id)),
   }));
 
   return (

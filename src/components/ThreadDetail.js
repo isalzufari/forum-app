@@ -87,6 +87,7 @@ function ThreadDetail({
         <p>{postedAt(createdAt)}</p>
         <p>
           Dibuat oleh
+          @
           {owner.name}
         </p>
       </Stack>

@@ -61,13 +61,13 @@ function ThreadDetailPage() {
       />
       <ThreadReplyInput replyComment={replyCommentThread} />
       <h3>
-        Komentar (
+        Comments (
         {threadDetail.comments.length}
         )
       </h3>
       {threadDetail.comments.length > 0
         ? <CardThreadDetail comments={threadDetail.comments} authUser={authUser.id} />
-        : <div>No Comments</div>}
+        : <p className="text-center">No Comments</p>}
     </>
   );
 }

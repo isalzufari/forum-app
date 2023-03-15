@@ -15,7 +15,6 @@ const ActionType = {
 };
 
 function receiveThreadDetailActionCreator(threadDetail) {
-  // console.log(threadDetail);
   return {
     type: ActionType.RECEIVE_THREAD_DETAIL,
     payload: {
