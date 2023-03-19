@@ -52,7 +52,7 @@ function ThreadsPage() {
   return (
     <>
       <ThreadInput threadInput={onThreadInput} />
-      <h4 className="mb-3 mt-3">Diskusi Tersedia</h4>
+      <h4 className="mb-3 mt-3">Discuss Available</h4>
       <Thread
         threads={threadList}
         like={onLike}

@@ -1,43 +1,26 @@
 import React from 'react';
-import { Button, Form } from 'react-bootstrap';
-import { Link } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
-import useInput from '../hooks/useInput';
+import { Link } from 'react-router-dom';
 import { asyncSetAuthUser } from '../states/authUser/action';
+import LoginInput from '../components/LoginInput';
 
 function LoginPage() {
   const dispatch = useDispatch();
 
-  const [onEmail, onEmailChange] = useInput('');
-  const [onPassword, onPasswordChange] = useInput('');
-
-  const onLogin = () => {
+  const onLogin = ({ onEmail, onPassword }) => {
     dispatch(asyncSetAuthUser({ email: onEmail, password: onPassword }));
   };
 
   return (
-    <Form className="mt-5 mx-5">
-      <Form.Group className="mb-3" controlId="formBasicEmail">
-        <Form.Label>Email address</Form.Label>
-        <Form.Control value={onEmail} onChange={onEmailChange} type="email" placeholder="Enter email" />
-        <Form.Text className="text-muted">
-          We&apos;ll never share your email with anyone else.
-        </Form.Text>
-      </Form.Group>
-
-      <Form.Group className="mb-3" controlId="formBasicPassword">
-        <Form.Label>Password</Form.Label>
-        <Form.Control value={onPassword} onChange={onPasswordChange} type="password" placeholder="Password" />
-      </Form.Group>
-      <Button onClick={() => onLogin()} variant="primary" type="button">
-        Login
-      </Button>
-      <p className="mt-3">
+    <>
+      <h3 className="text-center">Login</h3>
+      <LoginInput login={onLogin} />
+      <p className="mt-3 mx-5">
         Don&apos;t have an account?
         {' '}
         <Link to="/register">Register in here</Link>
       </p>
-    </Form>
+    </>
   );
 }
 
