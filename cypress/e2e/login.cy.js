@@ -57,5 +57,6 @@ describe('template spec', () => {
 
     cy.get('nav').contains(/^Forum App$/).should('be.visible');
     cy.get('button').contains('Discuss').should('be.visible');
+    cy.get('h4').contains('Discuss Available').should('be.visible');
   });
 });

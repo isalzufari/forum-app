@@ -1,5 +1,5 @@
 import React from 'react';
-import { Stack, Badge } from 'react-bootstrap';
+import { Stack, Badge, Image } from 'react-bootstrap';
 import parse from 'html-react-parser';
 import PropTypes from 'prop-types';
 import { postedAt } from '../utils';
@@ -18,6 +18,7 @@ function ThreadDetail({
   dislike,
   neutralLike,
   neutralDislike,
+  comments,
 }) {
   const isThreadLiked = upVotesBy.includes(authUser);
   const isThreadDisliked = downVotesBy.includes(authUser);
@@ -53,7 +54,7 @@ function ThreadDetail({
         {category}
       </Badge>
       <h1>{title}</h1>
-      <p>{parse(body)}</p>
+      <div>{parse(body)}</div>
       <Stack direction="horizontal" gap={3}>
         <button onClick={onLikeClick} type="button">
           {isThreadLiked
@@ -83,11 +84,13 @@ function ThreadDetail({
               </i>
             )}
         </button>
-        <i className="bi bi-reply"> 3</i>
+        <i className="bi bi-reply">
+          {' '}
+          {comments.length}
+        </i>
         <p>{postedAt(createdAt)}</p>
+        <Image src={owner.avatar} alt={owner.name} roundedCircle width={50} />
         <p>
-          Dibuat oleh
-          @
           {owner.name}
         </p>
       </Stack>
@@ -99,6 +102,15 @@ const userShape = {
   id: PropTypes.string.isRequired,
   name: PropTypes.string.isRequired,
   avatar: PropTypes.string.isRequired,
+};
+
+const commentShape = {
+  content: PropTypes.string.isRequired,
+  createdAt: PropTypes.string.isRequired,
+  downVotesBy: PropTypes.arrayOf(PropTypes.string).isRequired,
+  id: PropTypes.string.isRequired,
+  owner: PropTypes.shape(userShape).isRequired,
+  upVotesBy: PropTypes.arrayOf(PropTypes.string).isRequired,
 };
 
 ThreadDetail.propTypes = {
@@ -115,6 +127,7 @@ ThreadDetail.propTypes = {
   dislike: PropTypes.func.isRequired,
   neutralLike: PropTypes.func.isRequired,
   neutralDislike: PropTypes.func.isRequired,
+  comments: PropTypes.arrayOf(PropTypes.shape(commentShape)).isRequired,
 };
 
 export default ThreadDetail;
