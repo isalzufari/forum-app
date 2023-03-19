@@ -9,7 +9,7 @@
 
 describe('template spec', () => {
   beforeEach(() => {
-    cy.visit('http://localhost:3000/');
+    cy.visit('https://forum-app-nine.vercel.app/');
   });
 
   it('should display login page correctly', () => {
