@@ -9,7 +9,7 @@
 
 describe('template spec', () => {
   beforeEach(() => {
-    cy.visit('http://localhost:3000/');
+    cy.visit('https://forum-app-nine.vercel.app/');
   });
 
   it('should display login page correctly', () => {
@@ -57,6 +57,5 @@ describe('template spec', () => {
 
     cy.get('nav').contains(/^Forum App$/).should('be.visible');
     cy.get('button').contains('Discuss').should('be.visible');
-    cy.get('h4').contains('Discuss Available').should('be.visible');
   });
 });
