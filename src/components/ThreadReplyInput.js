@@ -19,7 +19,7 @@ function ThreadReplyInput({ replyComment }) {
   };
 
   return (
-    <Form>
+    <Form className="mt-3">
       <FloatingLabel
         controlId="floatingTextarea"
         label="Comments"
